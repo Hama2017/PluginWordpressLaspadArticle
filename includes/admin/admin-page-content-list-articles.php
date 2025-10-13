@@ -34,15 +34,50 @@
                                 <th><i class="fas fa-flag"></i> Pays</th>
                             </tr>
                         </thead>
-                        <tbody>
-                           <?php
-                           //TODO: Liste table data and escape output values for security
-                           // Use a foreach loop to iterate over $resultats
-                           // Loop through each article and display its details in a table row
-                           // Use esc_html() or esc_url() as appropriate to sanitize output
-                           // Example: echo esc_html($article->titre);
-                           ?>
-                        </tbody>
+                            <tbody>
+                                <?php foreach ($resultats as $article) : ?>
+                                    <tr>
+                                        <td><?php echo esc_html($article->id); ?></td>
+                                        <td>
+                                            <span class="badge bg-primary">
+                                                <?php echo esc_html($article->Type); ?>
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <strong><?php echo esc_html($article->Titre); ?></strong>
+                                        </td>
+                                        <td>
+                                            <span class="badge bg-info">
+                                                <?php echo esc_html($article->{"Année de publication"}); ?>
+                                            </span>
+                                        </td>
+                                        <td><?php echo esc_html($article->Langue); ?></td>
+                                        <td>
+                                            <i class="fas fa-user-circle"></i>
+                                            <?php echo esc_html($article->Auteur); ?>
+                                        </td>
+                                        <td>
+                                            <?php if (!empty($article->Url)) : ?>
+                                                <a href="<?php echo esc_url($article->Url); ?>" 
+                                                    target="_blank" 
+                                                    class="btn btn-sm btn-outline-primary"
+                                                    rel="noopener noreferrer">
+                                                    <i class="fas fa-external-link-alt"></i> Voir
+                                                </a>
+                                            <?php else : ?>
+                                                <span class="text-muted">-</span>
+                                            <?php endif; ?>
+                                        </td>
+                                        <td><?php echo esc_html($article->{"Terrain d'etude"}); ?></td>
+                                        <td><?php echo esc_html($article->Editeur); ?></td>
+                                        <td>
+                                            <span class="badge bg-success">
+                                                <?php echo esc_html($article->Pays); ?>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                <?php endforeach; ?>
+                            </tbody>
                     </table>
                 </div>
             <?php else : ?>
