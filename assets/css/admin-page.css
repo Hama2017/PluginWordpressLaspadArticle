@@ -371,3 +371,379 @@
     font-size: 0.875rem;
     margin-top: 0.5rem;
 }
+
+
+
+
+/* Variables CSS personnalisées */
+:root {
+    --laspad-orange: #ff9d00;
+    --laspad-teal: #59a498;
+    --laspad-dark: #2c3e50;
+    --laspad-light: #f8f9fa;
+    --shadow-sm: 0 2px 8px rgba(0,0,0,0.08);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.12);
+    --shadow-lg: 0 8px 24px rgba(0,0,0,0.15);
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Container principal */
+.laspad-admin-container {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    min-height: 100vh;
+    padding: 2rem 0;
+}
+
+/* Header avec animation */
+.laspad-header {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: var(--shadow-md);
+    border-left: 6px solid var(--laspad-orange);
+    transition: var(--transition);
+}
+
+.laspad-header:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+}
+
+.laspad-logo {
+    height: 60px;
+    transition: var(--transition);
+}
+
+.laspad-logo:hover {
+    transform: scale(1.05) rotate(2deg);
+}
+
+.laspad-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--laspad-dark);
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.laspad-subtitle {
+    color: #6c757d;
+    margin: 0.5rem 0 0 0;
+    font-size: 1rem;
+}
+
+/* Cards modernes */
+.laspad-card {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-sm);
+    border: none;
+    transition: var(--transition);
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.laspad-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--laspad-orange), var(--laspad-teal));
+    transition: var(--transition);
+}
+
+.laspad-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+}
+
+.laspad-card:hover::before {
+    height: 6px;
+}
+
+.laspad-card-icon {
+    width: 56px;
+    height: 56px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    transition: var(--transition);
+}
+
+.laspad-card-icon.orange {
+    background: linear-gradient(135deg, rgba(255, 157, 0, 0.1), rgba(255, 157, 0, 0.2));
+    color: var(--laspad-orange);
+}
+
+.laspad-card-icon.teal {
+    background: linear-gradient(135deg, rgba(89, 164, 152, 0.1), rgba(89, 164, 152, 0.2));
+    color: var(--laspad-teal);
+}
+
+.laspad-card:hover .laspad-card-icon {
+    transform: scale(1.1) rotate(5deg);
+}
+
+.laspad-card-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--laspad-dark);
+    margin-bottom: 1rem;
+}
+
+/* Shortcode display */
+.laspad-shortcode-box {
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border: 2px dashed var(--laspad-teal);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 1rem 0;
+    position: relative;
+    transition: var(--transition);
+}
+
+.laspad-shortcode-box:hover {
+    border-style: solid;
+    box-shadow: 0 0 0 4px rgba(89, 164, 152, 0.1);
+}
+
+.laspad-shortcode-box code {
+    font-size: 1rem;
+    color: var(--laspad-dark);
+    font-weight: 600;
+    font-family: 'Courier New', monospace;
+}
+
+.laspad-copy-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--laspad-teal);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+    font-size: 0.875rem;
+}
+
+.laspad-copy-btn:hover {
+    background: #4a8d82;
+    transform: scale(1.05);
+}
+
+/* Table moderne */
+.laspad-table-container {
+    background: white;
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: var(--shadow-md);
+    margin-top: 2rem;
+}
+
+.laspad-table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 2px solid #e9ecef;
+}
+
+.laspad-table-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: var(--laspad-dark);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.laspad-badge-count {
+    background: linear-gradient(135deg, var(--laspad-orange), #ffb347);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-sm);
+}
+
+#articles-datatable {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+}
+
+#articles-datatable thead th {
+    background: linear-gradient(135deg, var(--laspad-dark), #34495e);
+    color: white;
+    padding: 1rem;
+    font-weight: 600;
+    text-align: left;
+    border: none;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+#articles-datatable thead th:first-child {
+    border-top-left-radius: 12px;
+}
+
+#articles-datatable thead th:last-child {
+    border-top-right-radius: 12px;
+}
+
+#articles-datatable tbody tr {
+    transition: var(--transition);
+    border-bottom: 1px solid #e9ecef;
+}
+
+#articles-datatable tbody tr:hover {
+    background: linear-gradient(90deg, rgba(255, 157, 0, 0.05), rgba(89, 164, 152, 0.05));
+    transform: scale(1.01);
+    box-shadow: var(--shadow-sm);
+}
+
+#articles-datatable tbody td {
+    padding: 1rem;
+    color: #495057;
+}
+
+/* Badges personnalisés */
+.laspad-badge {
+    padding: 0.5rem 1rem;
+    border-radius: 20px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    display: inline-block;
+    transition: var(--transition);
+}
+
+.laspad-badge-type {
+    background: linear-gradient(135deg, rgba(89, 164, 152, 0.15), rgba(89, 164, 152, 0.25));
+    color: var(--laspad-teal);
+    border: 2px solid var(--laspad-teal);
+}
+
+.laspad-badge-type:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 0 4px rgba(89, 164, 152, 0.1);
+}
+
+/* Boutons personnalisés */
+.laspad-btn {
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.laspad-btn-link {
+    background: linear-gradient(135deg, var(--laspad-orange), #ffb347);
+    color: white;
+    text-decoration: none;
+    box-shadow: var(--shadow-sm);
+}
+
+.laspad-btn-link:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+    color: white;
+}
+
+/* Alert personnalisée */
+.laspad-alert {
+    background: linear-gradient(135deg, rgba(89, 164, 152, 0.1), rgba(89, 164, 152, 0.15));
+    border-left: 4px solid var(--laspad-teal);
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.laspad-alert i {
+    font-size: 1.5rem;
+    color: var(--laspad-teal);
+}
+
+/* Animation de chargement */
+@keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+.laspad-loading {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .laspad-header {
+        padding: 1.5rem;
+    }
+    
+    .laspad-title {
+        font-size: 1.5rem;
+    }
+    
+    .laspad-table-container {
+        padding: 1rem;
+        overflow-x: auto;
+    }
+}
+
+/* Stats cards (optionnel) */
+.laspad-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.laspad-stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.laspad-stat-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.laspad-stat-value {
+    font-size: 2rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--laspad-orange), var(--laspad-teal));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.laspad-stat-label {
+    color: #6c757d;
+    font-size: 0.875rem;
+    margin-top: 0.5rem;
+}
