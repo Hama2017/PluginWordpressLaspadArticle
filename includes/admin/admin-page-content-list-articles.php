@@ -41,7 +41,7 @@
                             <td><?php echo esc_html($article->id); ?></td>
                             
                             <td>
-                                <span class="badge bg-primary">
+                                <span class="badge bg-warning">
                                     <?php echo esc_html($article->type_article); ?>
                                 </span>
                             </td>
@@ -51,7 +51,7 @@
                             </td>
                             
                             <td>
-                                <span class="badge bg-info">
+                                <span class="badge bg-warning">
                                     <?php echo esc_html($article->annee); ?>
                                 </span>
                             </td>
@@ -67,7 +67,7 @@
                                 <?php if (!empty($article->url_article)) : ?>
                                     <a href="<?php echo esc_url($article->url_article); ?>" 
                                        target="_blank" 
-                                       class="btn btn-sm btn-outline-primary"
+                                       class="laspad-btn laspad-btn-link"
                                        rel="noopener noreferrer">
                                         <i class="fas fa-external-link-alt"></i> Voir
                                     </a>
@@ -81,7 +81,7 @@
                             <td><?php echo esc_html($article->editeur); ?></td>
                             
                             <td>
-                                <span class="badge bg-success">
+                                <span class="badge bg-warning">
                                     <?php echo esc_html($article->pays); ?>
                                 </span>
                             </td>

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-    // Vérification des données fournies par WordPress
+    // 🔹 Vérification des données fournies par WordPress
     const dataObj = typeof laspadData !== 'undefined' ? laspadData : null;
 
     if (!dataObj) {
@@ -14,11 +14,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const container = document.getElementById(containerId);
     if (!container) {
-        console.error('Container introuvable pour ID :', containerId);
+        console.error('Conteneur introuvable pour l’ID :', containerId);
         return;
     }
 
-    // Déterminer les classes de colonnes Bootstrap
+    // 🔹 Déterminer les classes de colonnes Bootstrap selon le nombre de cartes par ligne
     const cardColClass = {
         2: 'col-md-6 col-lg-6',
         3: 'col-md-6 col-lg-4',
@@ -26,31 +26,31 @@ document.addEventListener('DOMContentLoaded', function () {
         6: 'col-md-6 col-lg-2'
     }[cardsPerRow] || 'col-md-6 col-lg-4';
 
-    // --- HTML Injection ---
+    // 🔹 Injection du HTML
     const listEl = container.querySelector('.list');
     listEl.innerHTML = data.map((item, i) => `
-      <div class="${cardColClass} card-wrapper" style="animation-delay: ${i * 0.05}s;">
+    <div class="${cardColClass} card-wrapper" style="animation-delay: ${i * 0.05}s;">
         <div class="card h-100">
-          <div class="card-body">
+        <div class="card-body">
             <span class="card-badge type_article">${item.type_article || 'Autre'}</span>
             <h5 class="card-title"><span class="titre">${item.titre || 'Sans titre'}</span></h5>
             <p class="card-text">
-              <strong><i class="fa fa-user"></i> Author:</strong> <span class="auteur">${item.auteur || 'N/A'}</span><br>
-              <strong><i class="fa fa-calendar"></i> Year:</strong> <span class="annee">${item.annee || 'N/A'}</span><br>
-              <strong><i class="fa fa-language"></i> Language:</strong> <span class="langue">${item.langue || 'N/A'}</span><br>
-              <strong><i class="fa fa-globe"></i> Country:</strong> <span class="pays">${item.pays || 'N/A'}</span><br>
-              <strong><i class="fa fa-mountain"></i> Field of Study:</strong> <span class="terrain_etude">${item.terrain_etude || 'N/A'}</span><br>
-              <strong><i class="fa fa-building"></i> Publisher:</strong> <span class="editeur">${item.editeur || 'N/A'}</span>
+            <strong><i class="fa fa-user"></i> Auteur :</strong> <span class="auteur">${item.auteur || 'N/A'}</span><br>
+            <strong><i class="fa fa-calendar"></i> Année :</strong> <span class="annee">${item.annee || 'N/A'}</span><br>
+            <strong><i class="fa fa-language"></i> Langue :</strong> <span class="langue">${item.langue || 'N/A'}</span><br>
+            <strong><i class="fa fa-globe"></i> Pays :</strong> <span class="pays">${item.pays || 'N/A'}</span><br>
+            <strong><i class="fa fa-mountain"></i> Domaine d’étude :</strong> <span class="terrain_etude">${item.terrain_etude || 'N/A'}</span><br>
+            <strong><i class="fa fa-building"></i> Éditeur :</strong> <span class="editeur">${item.editeur || 'N/A'}</span>
             </p>
             <a href="${item.url_article || '#'}" target="_blank" class="btn btn-outline-primary btn-sm">
-              <i class="fa fa-book-open"></i> View Article
+            <i class="fa fa-book-open"></i> Voir l’article
             </a>
-          </div>
         </div>
-      </div>
+        </div>
+    </div>
     `).join('');
 
-    // --- Initialize List.js ---
+    // 🔹 Initialisation de List.js
     const options = {
         valueNames: ['titre', 'auteur', 'type_article', 'annee', 'langue', 'pays', 'terrain_etude', 'editeur'],
         page: paginationShortcode,
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     const publicationList = new List(containerId, options);
 
-    // Prevent scrolling on pagination click
+    // 🔹 Empêcher le défilement de la page au clic sur la pagination
     const pagination = container.querySelector('.pagination');
     if (pagination) {
         pagination.addEventListener('click', e => {
@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // --- Dynamic Filter Setup ---
+    // 🔹 Création dynamique des filtres
     const makeSelectOptions = (id, field) => {
         const select = container.querySelector(`#${id}`);
         if (!select) return;
@@ -88,7 +88,7 @@ document.addEventListener('DOMContentLoaded', function () {
     makeSelectOptions('filter-editeur', 'editeur');
     makeSelectOptions('filter-pays', 'pays');
 
-    // --- Results Count ---
+    // 🔹 Affichage du nombre de résultats
     const resultsInfo = container.querySelector('#results-info');
     const noResults = container.querySelector('#no-results');
 
@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function () {
         } else {
             noResults.style.display = 'none';
             resultsInfo.style.display = 'inline-block';
-            resultsInfo.textContent = `${count} result${count > 1 ? 's' : ''} found`;
+            resultsInfo.textContent = `${count} résultat${count > 1 ? 's' : ''} trouvé${count > 1 ? 's' : ''}`;
         }
     }
 
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateResultsCount();
 
-    // --- Apply Filters ---
+    // 🔹 Application des filtres
     function applyFilters() {
         const type = container.querySelector('#filter-type')?.value || '';
         const annee = container.querySelector('#filter-annee')?.value || '';
@@ -140,13 +140,13 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     }
 
-    // Bind filter change events
+    // 🔹 Lier les événements de changement de filtre
     ['filter-type', 'filter-annee', 'filter-langue', 'filter-editeur', 'filter-pays'].forEach(id => {
         const select = container.querySelector(`#${id}`);
         if (select) select.addEventListener('change', applyFilters);
     });
 
-    // --- Text search filter ---
+    // 🔹 Filtrage par recherche textuelle
     const searchInput = container.querySelector('.search');
     if (searchInput) {
         searchInput.addEventListener('keyup', function () {
