@@ -44,13 +44,16 @@ function laspad_handle_add_article() {
             'laspad_messages',
             'laspad_message',
             'Article ajouté avec succès!',
-            'success'
+            'updated'
         );
+        // Rediriger pour éviter la resoumission du formulaire
+        wp_redirect(admin_url('admin.php?page=laspad-article&message=added'));
+        exit;
     } else {
         add_settings_error(
             'laspad_messages',
             'laspad_message',
-            'Erreur lors de l\'ajout de l\'article.',
+            'Erreur lors de l\'ajout de l\'article: ' . $wpdb->last_error,
             'error'
         );
     }
@@ -99,13 +102,16 @@ function laspad_handle_edit_article() {
             'laspad_messages',
             'laspad_message',
             'Article modifié avec succès!',
-            'success'
+            'updated'
         );
+        // Rediriger pour éviter la resoumission du formulaire
+        wp_redirect(admin_url('admin.php?page=laspad-article&message=updated'));
+        exit;
     } else {
         add_settings_error(
             'laspad_messages',
             'laspad_message',
-            'Erreur lors de la modification de l\'article.',
+            'Erreur lors de la modification de l\'article: ' . $wpdb->last_error,
             'error'
         );
     }
@@ -136,24 +142,20 @@ function laspad_handle_delete_article() {
     $result = $wpdb->delete($table_name, array('id' => $article_id));
 
     if ($result) {
-        add_settings_error(
-            'laspad_messages',
-            'laspad_message',
-            'Article supprimé avec succès!',
-            'success'
-        );
+        // Rediriger avec message de succès
+        wp_redirect(admin_url('admin.php?page=laspad-article&message=deleted'));
+        exit;
     } else {
         add_settings_error(
             'laspad_messages',
             'laspad_message',
-            'Erreur lors de la suppression de l\'article.',
+            'Erreur lors de la suppression de l\'article: ' . $wpdb->last_error,
             'error'
         );
+        // Rediriger même en cas d'erreur
+        wp_redirect(admin_url('admin.php?page=laspad-article&message=error'));
+        exit;
     }
-
-    // Rediriger pour éviter la resoumission du formulaire
-    wp_redirect(admin_url('admin.php?page=laspad-article'));
-    exit;
 }
 
 /**

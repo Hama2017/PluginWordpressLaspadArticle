@@ -15,7 +15,25 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['article
     $article = laspad_get_article_by_id($article_id);
 }
 
-// Afficher les messages
+// Afficher les messages selon les paramètres GET
+if (isset($_GET['message'])) {
+    switch ($_GET['message']) {
+        case 'added':
+            echo '<div class="notice notice-success is-dismissible"><p><i class="fas fa-check-circle"></i> Article ajouté avec succès!</p></div>';
+            break;
+        case 'updated':
+            echo '<div class="notice notice-success is-dismissible"><p><i class="fas fa-check-circle"></i> Article modifié avec succès!</p></div>';
+            break;
+        case 'deleted':
+            echo '<div class="notice notice-success is-dismissible"><p><i class="fas fa-check-circle"></i> Article supprimé avec succès!</p></div>';
+            break;
+        case 'error':
+            echo '<div class="notice notice-error is-dismissible"><p><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue.</p></div>';
+            break;
+    }
+}
+
+// Afficher les messages d'erreur de settings_errors
 settings_errors('laspad_messages');
 ?>
 

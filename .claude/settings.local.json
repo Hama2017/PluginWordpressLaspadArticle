@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(php -l includes/admin/crud-handler.php)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}
