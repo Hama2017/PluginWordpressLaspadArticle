@@ -10,13 +10,18 @@ if (!defined('ABSPATH')) exit;
  * Traiter l'ajout d'un nouvel article
  */
 function laspad_handle_add_article() {
-    if (!isset($_POST['laspad_add_article']) || !isset($_POST['_wpnonce_laspad_add'])) {
+    if (!isset($_POST['_wpnonce_laspad_add'])) {
         return;
     }
 
     // Vérifier le nonce pour la sécurité
     if (!wp_verify_nonce($_POST['_wpnonce_laspad_add'], 'laspad_add_article')) {
         wp_die('Action non autorisée');
+    }
+
+    // Vérifier les capacités de l'utilisateur
+    if (!current_user_can('manage_options')) {
+        wp_die('Vous n\'avez pas les permissions nécessaires');
     }
 
     global $wpdb;
@@ -40,22 +45,13 @@ function laspad_handle_add_article() {
     $result = $wpdb->insert($table_name, $data);
 
     if ($result) {
-        add_settings_error(
-            'laspad_messages',
-            'laspad_message',
-            'Article ajouté avec succès!',
-            'updated'
-        );
         // Rediriger pour éviter la resoumission du formulaire
         wp_redirect(admin_url('admin.php?page=laspad-article&message=added'));
         exit;
     } else {
-        add_settings_error(
-            'laspad_messages',
-            'laspad_message',
-            'Erreur lors de l\'ajout de l\'article: ' . $wpdb->last_error,
-            'error'
-        );
+        // Rediriger avec message d'erreur
+        wp_redirect(admin_url('admin.php?page=laspad-article&message=error&error_details=' . urlencode($wpdb->last_error)));
+        exit;
     }
 }
 
@@ -63,13 +59,23 @@ function laspad_handle_add_article() {
  * Traiter la modification d'un article
  */
 function laspad_handle_edit_article() {
-    if (!isset($_POST['laspad_edit_article']) || !isset($_POST['_wpnonce_laspad_edit'])) {
+    if (!isset($_POST['_wpnonce_laspad_edit'])) {
         return;
     }
 
     // Vérifier le nonce pour la sécurité
     if (!wp_verify_nonce($_POST['_wpnonce_laspad_edit'], 'laspad_edit_article')) {
         wp_die('Action non autorisée');
+    }
+
+    // Vérifier les capacités de l'utilisateur
+    if (!current_user_can('manage_options')) {
+        wp_die('Vous n\'avez pas les permissions nécessaires');
+    }
+
+    if (!isset($_POST['article_id'])) {
+        wp_redirect(admin_url('admin.php?page=laspad-article&message=error&error_details=' . urlencode('ID article manquant')));
+        exit;
     }
 
     global $wpdb;
@@ -98,22 +104,13 @@ function laspad_handle_edit_article() {
     );
 
     if ($result !== false) {
-        add_settings_error(
-            'laspad_messages',
-            'laspad_message',
-            'Article modifié avec succès!',
-            'updated'
-        );
         // Rediriger pour éviter la resoumission du formulaire
         wp_redirect(admin_url('admin.php?page=laspad-article&message=updated'));
         exit;
     } else {
-        add_settings_error(
-            'laspad_messages',
-            'laspad_message',
-            'Erreur lors de la modification de l\'article: ' . $wpdb->last_error,
-            'error'
-        );
+        // Rediriger avec message d'erreur
+        wp_redirect(admin_url('admin.php?page=laspad-article&message=error&error_details=' . urlencode($wpdb->last_error)));
+        exit;
     }
 }
 
@@ -172,7 +169,24 @@ function laspad_get_article_by_id($article_id) {
     return $article;
 }
 
-// Hook pour traiter les actions
-add_action('admin_init', 'laspad_handle_add_article');
-add_action('admin_init', 'laspad_handle_edit_article');
+// Hook pour traiter les actions avec admin_post
+// Pour les utilisateurs connectés avec les permissions admin
+add_action('admin_post_laspad_add_article', 'laspad_handle_add_article_post');
+add_action('admin_post_laspad_edit_article', 'laspad_handle_edit_article_post');
+
+// Garder l'ancien système pour la suppression (via GET)
 add_action('admin_init', 'laspad_handle_delete_article');
+
+/**
+ * Wrapper pour l'ajout via admin_post
+ */
+function laspad_handle_add_article_post() {
+    laspad_handle_add_article();
+}
+
+/**
+ * Wrapper pour la modification via admin_post
+ */
+function laspad_handle_edit_article_post() {
+    laspad_handle_edit_article();
+}

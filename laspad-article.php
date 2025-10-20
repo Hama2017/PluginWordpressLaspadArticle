@@ -32,8 +32,8 @@ require_once plugin_dir_path( __FILE__ ) . 'includes/admin/admin-page.php';
 // Include CRUD handler
 require_once laspad_plugin_path('includes/admin/crud-handler.php');
 
-// Include debug file (comment this line in production)
-require_once laspad_plugin_path('includes/admin/debug-crud.php');
+// Include debug file (commenté en production - décommenter pour déboguer)
+// require_once laspad_plugin_path('includes/admin/debug-crud.php');
 
 require_once laspad_plugin_path('includes/shortcode/display-articles-shortcode.php');
 

@@ -19,22 +19,36 @@ if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['article
 if (isset($_GET['message'])) {
     switch ($_GET['message']) {
         case 'added':
-            echo '<div class="notice notice-success is-dismissible"><p><i class="fas fa-check-circle"></i> Article ajouté avec succès!</p></div>';
+            echo '<div class="laspad-alert success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Succès !</strong><br>
+                L\'article a été ajouté avec succès.
+            </div>';
             break;
         case 'updated':
-            echo '<div class="notice notice-success is-dismissible"><p><i class="fas fa-check-circle"></i> Article modifié avec succès!</p></div>';
+            echo '<div class="laspad-alert success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Succès !</strong><br>
+                L\'article a été modifié avec succès.
+            </div>';
             break;
         case 'deleted':
-            echo '<div class="notice notice-success is-dismissible"><p><i class="fas fa-check-circle"></i> Article supprimé avec succès!</p></div>';
+            echo '<div class="laspad-alert success">
+                <i class="fas fa-check-circle"></i>
+                <strong>Succès !</strong><br>
+                L\'article a été supprimé avec succès.
+            </div>';
             break;
         case 'error':
-            echo '<div class="notice notice-error is-dismissible"><p><i class="fas fa-exclamation-triangle"></i> Une erreur est survenue.</p></div>';
+            $error_details = isset($_GET['error_details']) ? esc_html($_GET['error_details']) : 'Une erreur est survenue.';
+            echo '<div class="laspad-alert error">
+                <i class="fas fa-exclamation-circle"></i>
+                <strong>Erreur !</strong><br>
+                ' . $error_details . '
+            </div>';
             break;
     }
 }
-
-// Afficher les messages d'erreur de settings_errors
-settings_errors('laspad_messages');
 ?>
 
 <div class="laspad-card mt-4">
@@ -52,12 +66,14 @@ settings_errors('laspad_messages');
             Article introuvable.
         </div>
     <?php else: ?>
-        <form method="post" class="laspad-article-form" id="laspad-article-form">
+        <form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" class="laspad-article-form" id="laspad-article-form">
             <?php
             if ($edit_mode) {
                 wp_nonce_field('laspad_edit_article', '_wpnonce_laspad_edit');
+                echo '<input type="hidden" name="action" value="laspad_edit_article">';
             } else {
                 wp_nonce_field('laspad_add_article', '_wpnonce_laspad_add');
+                echo '<input type="hidden" name="action" value="laspad_add_article">';
             }
             ?>
 
@@ -210,7 +226,6 @@ settings_errors('laspad_messages');
 
             <div class="d-flex gap-2 mt-4">
                 <button type="submit"
-                        name="<?php echo $edit_mode ? 'laspad_edit_article' : 'laspad_add_article'; ?>"
                         class="laspad-btn laspad-btn-link">
                     <i class="fas <?php echo $edit_mode ? 'fa-save' : 'fa-plus-circle'; ?>"></i>
                     <?php echo $edit_mode ? 'Enregistrer les modifications' : 'Ajouter l\'article'; ?>
