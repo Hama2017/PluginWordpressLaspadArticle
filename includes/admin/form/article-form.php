@@ -149,7 +149,6 @@ if (isset($_GET['message'])) {
                         <option value="">Sélectionnez...</option>
                         <option value="Homme" <?php echo ($edit_mode && $article->genre_auteur === 'Homme') ? 'selected' : ''; ?>>Homme</option>
                         <option value="Femme" <?php echo ($edit_mode && $article->genre_auteur === 'Femme') ? 'selected' : ''; ?>>Femme</option>
-                        <option value="Autre" <?php echo ($edit_mode && $article->genre_auteur === 'Autre') ? 'selected' : ''; ?>>Autre</option>
                     </select>
                 </div>
 
