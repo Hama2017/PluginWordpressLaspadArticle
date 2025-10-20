@@ -78,6 +78,9 @@
             </div>
         </div>
 
+        <!-- Formulaire d'ajout/modification d'article -->
+        <?php include laspad_plugin_path("includes/admin/form/article-form.php") ?>
+
         <!-- Table des articles -->
        <?php include laspad_plugin_path("includes/admin/admin-page-content-list-articles.php") ?>
     </div>

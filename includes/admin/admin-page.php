@@ -9,7 +9,7 @@ function laspad_article_add_menu_to_admin_dashboard() {
         'Laspad Article Admin',              // Page title
         'Laspad Article CSV',                // Menu title
         'manage_options',                    // Required capability
-        'laspad-article-admin-page',         // Page slug
+        'laspad-article',                    // Page slug
         'laspad_article_admin_page_content', // Callback function for page content
         'dashicons-upload',                  // Menu icon
         20                                   // Menu position
@@ -25,11 +25,11 @@ function laspad_article_admin_page_content() {
     require_once laspad_plugin_path('includes/admin/admin-page-content.php');
 }
 
-// Enqueue scripts and styles only on the plugin’s admin page
+// Enqueue scripts and styles only on the plugin's admin page
 function laspad_article_enqueue_assets_admin_page() {
-    // Check if the current screen is the plugin’s admin page
+    // Check if the current screen is the plugin's admin page
     $screen = get_current_screen();
-    if (!isset($screen->id) || $screen->id !== 'toplevel_page_laspad-article-admin-page') {
+    if (!isset($screen->id) || $screen->id !== 'toplevel_page_laspad-article') {
         return;
     }
 
@@ -97,6 +97,15 @@ function laspad_article_enqueue_assets_admin_page() {
         'laspad-datatable-init',
         laspad_plugin_url('assets/js/datatable-init.js'),
         array('datatable-js'),
+        '1.0',
+        true
+    );
+
+    // Enqueue CRUD actions JavaScript
+    wp_enqueue_script(
+        'laspad-crud-actions',
+        laspad_plugin_url('assets/js/crud-actions.js'),
+        array('jquery'),
         '1.0',
         true
     );

@@ -29,5 +29,8 @@ register_activation_hook(__FILE__, 'laspad_article_install');
 // Include the admin page file
 require_once plugin_dir_path( __FILE__ ) . 'includes/admin/admin-page.php';
 
+// Include CRUD handler
+require_once laspad_plugin_path('includes/admin/crud-handler.php');
+
 require_once laspad_plugin_path('includes/shortcode/display-articles-shortcode.php');
 

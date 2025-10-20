@@ -33,6 +33,7 @@
                         <th><i class="fas fa-map-marker-alt"></i> Terrain</th>
                         <th><i class="fas fa-building"></i> Éditeur</th>
                         <th><i class="fas fa-flag"></i> Pays</th>
+                        <th><i class="fas fa-cogs"></i> Actions</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -84,6 +85,25 @@
                                 <span class="badge bg-warning">
                                     <?php echo esc_html($article->pays); ?>
                                 </span>
+                            </td>
+
+                            <td>
+                                <div class="laspad-actions-btns">
+                                    <a href="<?php echo admin_url('admin.php?page=laspad-article&action=edit&article_id=' . $article->id); ?>"
+                                       class="laspad-btn-action laspad-btn-edit"
+                                       title="Modifier">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a href="<?php echo wp_nonce_url(
+                                        admin_url('admin.php?page=laspad-article&action=delete&article_id=' . $article->id),
+                                        'laspad_delete_article_' . $article->id
+                                    ); ?>"
+                                       class="laspad-btn-action laspad-btn-delete"
+                                       onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet article ? Cette action est irréversible.');"
+                                       title="Supprimer">
+                                        <i class="fas fa-trash-alt"></i>
+                                    </a>
+                                </div>
                             </td>
                         </tr>
                     <?php endforeach; ?>
